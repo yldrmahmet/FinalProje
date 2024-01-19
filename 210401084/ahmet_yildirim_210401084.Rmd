@@ -1,0 +1,13 @@
+---
+title: "Proje Rapor : Ahmet Yildirim 210401084."
+author: "ahmet yildirim"
+date: "2024-01-17"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+# Q1 : Problem Tanımı
+
+Şirketimiz **Yıldırım Bilişim**. Projemiz kişiye özel egzersiz programı uygulamasıdır.
