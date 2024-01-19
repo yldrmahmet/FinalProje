@@ -66,3 +66,30 @@ testthat::test_that("Veri seti C6n iElemesi doDru mu?", {
   expect_gt(summary_df$unique_values_bodyPart, 0, info = "bodyPart sC<tununda benzersiz deDerler kontrolC<")
   expect_gt(summary_df$unique_values_equipment, 0, info = "equipment sC<tununda benzersiz deDerler kontrolC<")
 })
+
+## Q5 Q5 Q5 
+## Q5 Q5 Q5 
+## Q5 Q5 Q5 
+## Q5 Q5 Q5 
+## Q5 Q5 Q5 
+## Q5 Q5 Q5 
+## Q5 Q5 Q5 
+## Q5 Q5 Q5 
+
+library(dplyr)
+
+## Q5 Q5 Q5 # Test senaryolarD1nD1 tanD1mla
+testthat::test_that("Uygulama D0statistikleri doDru mu?", {
+  
+  # VC<cut bC6lgelerine gC6re egzersiz sayD1sD1 grafiDi testi
+  expect_true(file.exists("vucut_bolgeleri_grafik.png"), info = "VC<cut bC6lgelerine gC6re egzersiz sayD1sD1 grafiDi dosyasD1 kontrolC<")
+  
+  # Ekipmanlara gC6re egzersiz sayD1sD1 daDD1lD1mD1 grafiDi testi
+  expect_true(file.exists("ekipmanlar_grafik.png"), info = "Ekipmanlara gC6re egzersiz sayD1sD1 daDD1lD1mD1 grafiDi dosyasD1 kontrolC<")
+  
+  # Kategori frekans grafiDi testi
+  expect_true(file.exists("kategori_frekans_grafik.png"), info = "Kategori frekans grafiDi dosyasD1 kontrolC<")
+})
+
+
+

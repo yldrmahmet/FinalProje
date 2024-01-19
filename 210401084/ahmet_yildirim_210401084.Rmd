@@ -110,7 +110,6 @@ library(testthat)
 testthat::test_file("tests/Q1_tests_ahmet_yildirim_210401084.R")
 ```
 
-
 # Q4: Veri seti ön işlemesi
 
 Görüldüğü üzere zaten veri setinde NA değer yoktu. 10 adet farklı vücut bölgesi üzerinde, 28 farklı ekipman kullanarak kullanıcılarımız için egzersiz programları hazırladık.
@@ -138,6 +137,52 @@ print(summary_df)
 
 ```
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# Gerekli kütüphaneleri yükle
+library(testthat)
+# Test dosyasını çağır
+testthat::test_file("tests/Q1_tests_ahmet_yildirim_210401084.R")
+```
+
+# Q5 : Veri mühendisliği
+
+Veri setinin istatistiksel özetini inceleyebilirsiniz:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Veri setinin özet istatistikleri
+summary(veriseti)
+```
+
+Bu bölümde spesifik bilgiler hazırladık.
+
+Aşağıda vücut bölgesine özel, ekipman kullanım sıklığını gösteren bir grafiği inceleyebilirsiniz:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# ggplot2 paketini yükle
+library(ggplot2)
+
+# BodyPart'a göre ekipman kullanımı
+ggplot(veriseti, aes(x = bodyPart, fill = equipment)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Vücut Bölgesine Göre Ekipman Kullanımı", x = "BodyPart", y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # x eksenindeki etiketleri 45 derece açıyla çiz
+
+```
+
+Bu grafik ise , vücut bölgelerine göre hedeflenen kasların isimlerini içermektedir.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# ggplot2 paketini yükle
+library(ggplot2)
+
+# BodyPart'a göre hedef kas bölgeleri
+ggplot(veriseti, aes(x = bodyPart, fill = target)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Vucut Bolgelerine Gore Hedef Kas Bolgeleri", x = "BodyPart", y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # x eksenindeki etiketleri 45 derece açıyla çiz
+```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 # Gerekli kütüphaneleri yükle
