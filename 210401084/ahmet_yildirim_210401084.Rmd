@@ -11,3 +11,9 @@ output:
 # Q1 : Problem Tanımı
 
 Şirketimiz **Yıldırım Bilişim**. Projemiz kişiye özel egzersiz programı uygulamasıdır.
+
+# Q2 : Proje Amacı
+
+Amacımız son dönemlerde ülkemizde artan ve bilimsel veriler ışığında gelecekte daha da artacağı tahmin edilen obezite, diyabet, tansiyon, postür bozuklukları, kifoz, skolyoz, vb. hastalıklara karşı yardımcı bir tedavi oluşturmaktır. Bu hastalıkların artacağını öngördüğümüz için uygulamaya talebin yüksek olacağını düşünüyoruz, aynı zamanda ülkemiz insanına da yararlı olmak istiyoruz.
+
+Uygulamada kişinin sahip olduğu hastalık ve diğer bilgiler (yaş, cinsiyet, boy, kilo, vb.) baz alınarak özel bir antrenman programı oluşturulacaktır. Oluşturulan bu antrenman programının hedefi kişinin hayat kalitesini arttırmak, sahip olduğu hastalığı mümkün olduğu ölçüde tedavi etmek ve kişiye spor alışkanlığı kazandırmaktır.
