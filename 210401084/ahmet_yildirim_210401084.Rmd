@@ -133,7 +133,7 @@ summary_df <- data.frame(
 
 # Raporu gösterme
 print(summary_df)
-
+#new commit
 
 ```
 
