@@ -17,3 +17,96 @@ output:
 Amacımız son dönemlerde ülkemizde artan ve bilimsel veriler ışığında gelecekte daha da artacağı tahmin edilen obezite, diyabet, tansiyon, postür bozuklukları, kifoz, skolyoz, vb. hastalıklara karşı yardımcı bir tedavi oluşturmaktır. Bu hastalıkların artacağını öngördüğümüz için uygulamaya talebin yüksek olacağını düşünüyoruz, aynı zamanda ülkemiz insanına da yararlı olmak istiyoruz.
 
 Uygulamada kişinin sahip olduğu hastalık ve diğer bilgiler (yaş, cinsiyet, boy, kilo, vb.) baz alınarak özel bir antrenman programı oluşturulacaktır. Oluşturulan bu antrenman programının hedefi kişinin hayat kalitesini arttırmak, sahip olduğu hastalığı mümkün olduğu ölçüde tedavi etmek ve kişiye spor alışkanlığı kazandırmaktır.
+
+# Q3 : Veri seti keşifsel analizi
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+verisetiBaslangic <- "fitness_exercises.csv"
+library(readr)
+veriseti <- read_csv(verisetiBaslangic)
+```
+
+# Veri seti boyutları
+
+-   Satır sayısı: `r nrow(veriseti)`
+
+-   Sütun sayısı: `r ncol(veriseti)`
+
+    1.  sütunda vücudun hangi bölgesini kullanarak egzersizin yapıldığı,
+
+    2.  sütunda hangi ekipmanla egzersizin yapıldığı,
+
+    3.  sütunda egzersizin yapılışın gif olarak gösterimi,
+
+    4.  sütunda egzersizin id numarası,
+
+    5.  sütunda egzersizin ismi,
+
+    6.  sütunda egzersizin vücutta etki ettiği kas grubunun ismi verilmiş.
+
+    Biz projemizi hazırlarken tüm sütunları kullandık. Herhangi bir sütunu çıkarmaya veya eklemeye gerek duymadık. Veri setimizdeki tüm sutunlar karakter veri tipiydi. Projenin ilerleyen kısımlarında bazı sütunları gerektiğinde faktör ve nümerik veri tiplerine çevirdik. Veri setinde anlamsız veya yanlış bir veri yoktu.
+
+Veri setininin genel görünümü aşağıda verilmiştir. Bu veri seti üzerinde çalıştık. Fikir sahibi olmak için inceleyebilirsiniz.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+veriseti
+```
+
+Uygulamamızda kullanıcıya özel filtreleme sistemleri kullanıyoruz ve en uygun egzersiz programını sunuyoruz. Karşınızda küçük bir filtreleme örneği, yanlızca vücut ağırlığıyla yapılacak egzersizler:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# "equipment" değeri "body weight" olanları filtrele
+filtreli_veri <- veriseti[veriseti$equipment == "body weight", ]
+
+# Sonucu ekrana yazdır
+filtreli_veri
+```
+
+Uygulamamızda vücudunuzun her bölgesi için yeteri sayıda egzersiz bulunuyor. İşte \*\* vücut bölgelerine göre egzersiz sayılarını \*\* gösteren bir grafik:
+
+```{r  echo=FALSE, message=FALSE, warning=FALSE}
+# bodyPart sütunundaki elemanların frekanslarını hesapla
+bodyPart_frekans <- table(veriseti$bodyPart)
+
+par(mar = c(10, 5, 4, 2) + 0.1)  # Grafik kenar boşluklarını ayarla
+barplot(bodyPart_frekans, main="Vücut bölgelerine göre egzersiz sayısı dağılımı", xlab="", ylab="Frekans", col="skyblue", las=2)
+```
+
+Uygulamamızda vücudunuzun her bölgesi için yeteri sayıda egzersiz bulunduğunu söylemiştik. Elinizde az ekipman olsa bile çok sayıda egzersiz önerisi alacağınızdan emin olabilirsiniz. Herkesin ekipmanı olmayacağını düşündüğümüz için ekipmansız egzersizlere ağırlık verdik. Grafikten inceleyebilirsiniz:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# equipment sütunundaki elemanların frekanslarını hesapla
+equipment_frekans <- table(veriseti$equipment)
+
+# Sıklığı 30'dan fazla olanları filtrele
+equipment_frekans_filtreli <- equipment_frekans[equipment_frekans >= 30]
+
+# Grafiği sola kaydır
+par(mar=c(5,5,2,2))  # Grafik kenar boşluklarını ayarla
+
+# Pie grafiğini çiz
+pie(equipment_frekans_filtreli, main="Ekipmanlara göre egzersiz sayısı dağılımı", col=rainbow(length(equipment_frekans_filtreli)))
+
+# Değerleri grafiğin merkezine yaz
+text(0, 0, equipment_frekans_filtreli, cex=0.8, col="white", font=2)
+```
+
+Vücuttaki hedeflenen kas bölgelerine göre egzersiz sayılarını da bir tablo haline getirdik. Zayıf olduğunuz kasları tespit edip güçlendirme egzersizleri de öneriyoruz.
+
+```{r  echo=FALSE, message=FALSE, warning=FALSE}
+# target sütunundaki elemanların frekanslarını hesapla
+target_frekans <- table(veriseti$target)
+
+# Frekansları tablo halinde göster
+target_tablo <- as.data.frame(target_frekans)
+colnames(target_tablo) <- c("Hedef Kas Grubu", "Toplam Egzersiz Sayısı")
+target_tablo
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# Gerekli kütüphaneleri yükle
+library(testthat)
+# Test dosyasını çağır
+testthat::test_file("tests/Q1_tests_ahmet_yildirim_210401084.R")
+```
+
