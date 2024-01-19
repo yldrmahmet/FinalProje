@@ -110,6 +110,7 @@ library(testthat)
 testthat::test_file("tests/Q1_tests_ahmet_yildirim_210401084.R")
 ```
 
+
 # Q4: Veri seti ön işlemesi
 
 Görüldüğü üzere zaten veri setinde NA değer yoktu. 10 adet farklı vücut bölgesi üzerinde, 28 farklı ekipman kullanarak kullanıcılarımız için egzersiz programları hazırladık.
@@ -133,9 +134,10 @@ summary_df <- data.frame(
 
 # Raporu gösterme
 print(summary_df)
-#new commit
+
 
 ```
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 # Gerekli kütüphaneleri yükle
@@ -184,9 +186,106 @@ ggplot(veriseti, aes(x = bodyPart, fill = target)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # x eksenindeki etiketleri 45 derece açıyla çiz
 ```
 
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 # Gerekli kütüphaneleri yükle
 library(testthat)
 # Test dosyasını çağır
 testthat::test_file("tests/Q1_tests_ahmet_yildirim_210401084.R")
 ```
+
+
+
+# Q6: Veri Analizi
+
+Girilen bilgilere göre (yaş, cinsiyet, hastalık, vs.) egzersiz programı önermeyi bu bölümde yaptık.\
+R markdown dosyasında olduğumuz için 5 örnek insandan rastgele veriler alıyoruz. ( Projeyi her çalıştırdığınızda alacağınız sonuçlar farklılık gösterecektir, çünkü veriler rastgele oluşuyor.) Uygulamada kullanıcılar bilgilerini girecek ve gerekli algoritma çalıştıktan sonra kişiye özel egzersiz programı çıktısı verilecektir.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Gerekli paketi yükleyin
+library(dplyr)
+
+# Sahte kişiler oluştur, uygulamayı denemek için
+rastgele_tamsayi <- sample(1:100, size = 1)
+n_obs <- 5
+set.seed(rastgele_tamsayi)  # Rastgelelik kontrolü
+sahte_veri <- data.frame(
+  Yas = sample(18:40, n_obs, replace = TRUE),
+  Cinsiyet = sample(c("Erkek", "Kadın"), n_obs, replace = TRUE),
+  Boy = sample(160:190, n_obs, replace = TRUE),
+  Kilo = sample(60:90, n_obs, replace = TRUE),
+  Hastalik = sample(c("Evet", "Hayır"), n_obs, replace = TRUE)
+)
+
+# Fonksiyon tanımlama
+egzersiz_oneri <- function(yas, cinsiyet, hastalik) {
+  if (yas <= 30) {
+    if (cinsiyet == "Erkek") {
+      if (hastalik == "Evet") {
+        print("30 yaşından küçük, erkek ve hasta")
+        # Cardio ve body weight egzersizleri
+        filtrelenmis_egzersizler <- subset(veriseti, bodyPart == "cardio" & equipment == "body weight")
+        print(filtrelenmis_egzersizler)
+      } else {
+        print("30 yaşından küçük, erkek ve hasta değil")
+        # Dumbell, barbell, cable, smith machine egzersizleri
+        filtrelenmis_egzersizler <- subset(veriseti, equipment %in% c("dumbell", "barbell", "cable", "smith machine"))
+        print(filtrelenmis_egzersizler)
+      }
+    } else {
+      if (hastalik == "Evet") {
+        print("30 yaşından küçük, kadın ve hasta")
+        # Cardio, body weight ve band egzersizleri
+        filtrelenmis_egzersizler <- subset(veriseti, bodyPart == "cardio" & (equipment == "body weight" | equipment == "band"))
+        print(filtrelenmis_egzersizler)
+      } else {
+        print("30 yaşından küçük, kadın ve hasta değil")
+        # Body weight, upper legs, kettlebell, band egzersizleri
+        filtrelenmis_egzersizler <- subset(veriseti, equipment %in% c("body weight", "upper legs", "kettlebell", "band"))
+        print(filtrelenmis_egzersizler)
+      }
+    }
+  } else {
+    if (cinsiyet == "Erkek") {
+      if (hastalik == "Evet") {
+        print("30 yaşından büyük, erkek ve hasta")
+        # Spor yapmaya uygun değil, eğer kalp hastasıysanız lütfen uygulamayı kullanmayın
+      } else {
+        print("30 yaşından büyük, erkek ve hasta değil")
+        # Dumbell, barbell, cable, smith machine, ez barbell, leverage machine egzersizleri
+      }
+    } else {
+      if (hastalik == "Evet") {
+        print("30 yaşından büyük, kadın ve hasta")
+        # Medicine ball ve cardio egzersizleri
+      } else {
+        print("30 yaşından büyük, kadın ve hasta değil")
+        # Diğer durumlar
+      }
+    }
+  }
+}
+
+# Örnek kullanım
+for (i in 1:nrow(sahte_veri)) {
+  egzersiz_oneri(sahte_veri$Yas[i], sahte_veri$Cinsiyet[i], sahte_veri$Hastalik[i])
+  cat("\n\n")
+}
+
+```
+
+
+# Q7: Sonuç Değerlendirme, Tavsiyeler
+
+Bu projede kullanıcılara özel bir egzersiz deneyimi yaşatmak hedeflenmiştir.\
+Proje tanımı ve amacı yediden yetmişe her kesimden insana hitap etmektedir.\
+Proje hakkında ayrıntılı ve özet bilgiler yukarıdaki alanlarda paylaşılmıştır.\
+Günlük hayattan gerçek bir problem ele alınmış, gerçek bir veri seti kullanılmıştır.\
+Proje anlatımında çeşitli grafikler ve istatistiksel veriler kullanılmıştır.\
+
+**Tavsiyeler**
+
+1.  *Lütfen düzenli şekilde antrenman programının takip edilmesi gerektiği,*
+2.  *Kas gelişiminin veya hastalıklarla mücadelenin uzun bir süreç olduğu,*
+3.  *Egzersizlerin yanlış yapıldığında kötü sonuçlar doğurabileceği,*
+4.  *Her ne kadar kişiye özel antrenman programı sunuluyor olsa da programın insan eliyle yapıldığı ve bu yüzden hatalarla karşılaşılabileceği* *kullanıcılarla paylaşılmalıdır.*

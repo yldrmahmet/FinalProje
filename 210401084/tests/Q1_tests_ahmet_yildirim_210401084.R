@@ -92,4 +92,3 @@ testthat::test_that("Uygulama D0statistikleri doDru mu?", {
 })
 
 
-
