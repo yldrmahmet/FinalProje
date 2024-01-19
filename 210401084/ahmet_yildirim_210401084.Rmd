@@ -110,3 +110,38 @@ library(testthat)
 testthat::test_file("tests/Q1_tests_ahmet_yildirim_210401084.R")
 ```
 
+
+# Q4: Veri seti ön işlemesi
+
+Görüldüğü üzere zaten veri setinde NA değer yoktu. 10 adet farklı vücut bölgesi üzerinde, 28 farklı ekipman kullanarak kullanıcılarımız için egzersiz programları hazırladık.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Kategori bilgisi içeren sütunu factor tipine çevirme
+veriseti$bodyPart <- as.factor(veriseti$bodyPart)
+
+
+# Belirli bir sütundaki NA değerleri temizleme (örneğin, target sütunu)
+veriseti <- veriseti[complete.cases(veriseti$target), ]
+
+# Özet Rapor
+summary_df <- data.frame(
+  NAs_before = sum(is.na(veriseti)),
+  NAs_after = sum(is.na(veriseti[complete.cases(veriseti), ])),
+  unique_values_bodyPart = length(unique(veriseti$bodyPart)),
+  unique_values_equipment = length(unique(veriseti$equipment))
+)
+
+# Raporu gösterme
+print(summary_df)
+
+
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# Gerekli kütüphaneleri yükle
+library(testthat)
+# Test dosyasını çağır
+testthat::test_file("tests/Q1_tests_ahmet_yildirim_210401084.R")
+```
